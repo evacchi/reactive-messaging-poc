@@ -1,5 +1,7 @@
 package com.example.demo.common.data;
 
+import java.time.Duration;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
@@ -19,10 +21,7 @@ public class Generator {
     @Named("event_publisher")
     @Produces
     Publisher<Event> test(){
-        return Multi.createFrom().items(
-                new Event("fake1"),
-                new Event("fake2"),
-                new Event("fake3"),
-                new Event("fake4"));
+        return Multi.createFrom().ticks().every(Duration.ofSeconds(1))
+                .map(t -> new Event("fake"+t));
     }
 }
