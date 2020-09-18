@@ -11,9 +11,11 @@ import org.eclipse.microprofile.reactive.messaging.Channel;
 @ApplicationScoped
 public class EventConsumerFactory {
 
+    @Channel("event_stream") Multi<String> events;
+
     @Produces
     @Named("event_publisher")
-    public Multi<Event> makeMulti(@Channel("event_stream") Multi<String> events) {
+    public Multi<Event> makeMulti() {
         return events.map(Event::new);
     }
 }

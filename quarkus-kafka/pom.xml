@@ -47,9 +47,14 @@
         <artifactId>common</artifactId>
         <version>1.0.0-SNAPSHOT</version>
       </dependency>
+      <!-- do not use quarkus extensions here -->
       <dependency>
-        <groupId>io.quarkus</groupId>
-        <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
+        <groupId>io.smallrye.reactive</groupId>
+        <artifactId>mutiny</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>io.smallrye.reactive</groupId>
+        <artifactId>smallrye-reactive-messaging-kafka</artifactId>
       </dependency>
     </dependencies>
 

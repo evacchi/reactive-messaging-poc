@@ -30,6 +30,8 @@ Each demo comes with two profiles:
 
 ## Generated Data
 
+![generated demo](imgs/generated.gif)
+
 The [common-data-generator](common-data-generator) project
 contains [one single class](common-data-generator/src/main/java/com/example/demo/common/data/Generator.java) 
 annotated both with Spring and CDI annotations (scope: `provided`), with an 
@@ -102,6 +104,11 @@ the lines with `EventSubscriber` represent generated fake events. Ctrl-C to quit
 
 ## Live Kafka Events
 
+![generated demo](imgs/kafka.gif)
+
+This demo uses the native Quarkus and Spring facilities to plug a kafka 
+connector that funnels data into the same Publisher of the generated version
+
 ### Setup
 
 Start a local Kafka+Zookeeper in the root project
@@ -134,6 +141,9 @@ Use `Ctrl-C[Enter]` to quit.
  When the application starts, type in the console with the producer, and send.
  The Application will echo your message.
  
+The demo uses SmallRye Reactive Messaging + Kafka Connector. 
+The only thing the kafka addon module does, is [pass on the data](quarkus-kafka/src/main/java/org/acme/EventConsumerFactory.java)
+ 
  
  ### Spring
  
@@ -142,3 +152,14 @@ Use `Ctrl-C[Enter]` to quit.
              
  When the application starts, type in the console with the producer, and send.
  The Application will echo your message.
+
+The demo uses [Reactor Kafka](https://projectreactor.io/docs/kafka/release/reference/#_reactive_api_for_kafka).
+[A minimal amount of glue code is required](quarkus-kafka/src/main/java/org/acme/EventConsumerFactory.java), which
+may not be necessary when or if
+[this Reactor-based Kafka listener lands in the Reactor mainline](https://github.com/reactor/reactor-kafka/issues/100#issuecomment-502756802).
+ 
+ If you run both demos (Spring+Quarkus) at once you will see them echo the same 
+ message together.
+ 
+ 
+ 
