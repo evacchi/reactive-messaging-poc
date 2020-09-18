@@ -18,6 +18,7 @@
     <module>common-data-generator</module>
     <module>spring-kafka</module>
     <module>spring-demo</module>
+    <module>quarkus-kafka</module>
     <module>quarkus-demo</module>
   </modules>
 

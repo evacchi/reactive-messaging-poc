@@ -25,10 +25,18 @@
     </dependency>
 
     <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>5.2.7.RELEASE</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
       <groupId>org.reactivestreams</groupId>
       <artifactId>reactive-streams</artifactId>
       <version>1.0.3</version>
-      <scope>compile</scope>
+      <scope>provided</scope>
+
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -38,5 +46,25 @@
     </dependency>
   </dependencies>
 
+
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jboss.jandex</groupId>
+        <artifactId>jandex-maven-plugin</artifactId>
+        <version>1.0.7</version>
+        <executions>
+          <execution>
+            <id>make-index</id>
+            <goals>
+              <goal>jandex</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

@@ -12,25 +12,28 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import reactor.core.publisher.Flux;
 
-@SpringBootApplication(scanBasePackages = { "com.example.demo.**", "com.example.demo.common.**"})
+@SpringBootApplication(
+		scanBasePackages = {
+				"com.example.demo.**",
+				"com.example.demo.common.**",
+				"com.example.demo.common.data.**"})
 public class DemoApplication implements CommandLineRunner {
 	private static final Logger log = LoggerFactory.getLogger(CommandLineRunner.class.getName());
-
-	public static void main(String[] args) throws InterruptedException {
-		SpringApplication.run(DemoApplication.class, args);
-		new CountDownLatch(10).await();
-	}
 
 	@Autowired
 	@Qualifier("event_publisher")
 	Publisher<Event> publisher;
 
-
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("startup");
 		publisher.subscribe(new EventSubscriber());
+	}
+
+	public static void main(String[] args) throws InterruptedException {
+		SpringApplication.run(DemoApplication.class, args);
+		// hang so that it won't quit immediately
+		new CountDownLatch(1).await();
 	}
 }

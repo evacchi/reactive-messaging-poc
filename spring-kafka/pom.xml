@@ -8,7 +8,7 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>spring-glue</artifactId>
+	<artifactId>spring-kafka</artifactId>
 
 	<dependencies>
 		<dependency>
@@ -34,6 +34,5 @@
 			</dependency>
 
 	</dependencies>
-
 
 </project>

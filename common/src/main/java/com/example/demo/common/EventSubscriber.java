@@ -23,7 +23,7 @@ public class EventSubscriber implements Subscriber<Event> {
 
     @Override
     public void onError(Throwable t) {
-        log.error("Caugh error", t);
+        log.error("Caught error", t);
     }
 
     @Override
