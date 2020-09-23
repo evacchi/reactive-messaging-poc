@@ -7,11 +7,18 @@ import javax.inject.Inject;
 
 import com.example.demo.common.CloudEventEmitter;
 import com.example.demo.common.Event;
+import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 
+/**
+ * the quarkus implementation just delegates to a real emitter,
+ * since smallrye reactive messaging handles different transports
+ *
+ */
 @ApplicationScoped
 public class QuarkusCloudEventEmitter implements CloudEventEmitter {
     @Inject
+    @Channel("output_stream")
     Emitter<Event> emitter;
 
     @Override

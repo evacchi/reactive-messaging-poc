@@ -5,9 +5,11 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.example.demo.common.CloudEventEmitter;
 import com.example.demo.common.Event;
 import com.example.demo.common.EventSubscriber;
 import io.quarkus.runtime.Startup;
+import io.smallrye.mutiny.Multi;
 import org.reactivestreams.Publisher;
 
 @Startup
@@ -17,8 +19,13 @@ public class DemoConsumer {
     @Named("event_publisher")
     Publisher<Event> publisher;
 
+    @Inject
+    CloudEventEmitter emitter;
+
     @PostConstruct
     void observer() {
-        publisher.subscribe(new EventSubscriber());
+        Multi.createFrom().publisher(publisher)
+                .onItem().invoke(System.out::println)
+                .subscribe().with(emitter::emit);
     }
 }

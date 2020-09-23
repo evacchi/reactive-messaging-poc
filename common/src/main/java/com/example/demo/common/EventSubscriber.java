@@ -17,6 +17,7 @@ public class EventSubscriber implements Subscriber<Event> {
     @Override
     public void onNext(Event event) {
         s.request(1);
+        // this may trigger event dispatching, for now it just logs
         log.info("Received {}", event.toString());
 
     }

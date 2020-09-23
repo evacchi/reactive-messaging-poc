@@ -2,6 +2,7 @@ package com.example.demo;
 
 import java.util.concurrent.CountDownLatch;
 
+import com.example.demo.common.CloudEventEmitter;
 import com.example.demo.common.Event;
 import com.example.demo.common.EventSubscriber;
 import org.reactivestreams.Publisher;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import reactor.core.publisher.Flux;
 
 @SpringBootApplication(
 		scanBasePackages = {
@@ -25,10 +27,15 @@ public class DemoApplication implements CommandLineRunner {
 	@Qualifier("event_publisher")
 	Publisher<Event> publisher;
 
+	@Autowired
+	CloudEventEmitter emitter;
+
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("startup");
-		publisher.subscribe(new EventSubscriber());
+		Flux.from(publisher)
+				.map(e -> { System.out.println(e); return e;})
+				.subscribe(emitter::emit);
 	}
 
 	public static void main(String[] args) throws InterruptedException {
