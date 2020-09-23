@@ -22,9 +22,9 @@ import org.springframework.stereotype.Component;
 import reactor.kafka.sender.SenderOptions;
 
 @Component
-public class SpringCloudEventEmitter implements CloudEventEmitter {
+public class SpringCloudEventKafkaEmitter implements CloudEventEmitter {
 
-    private static final Logger log = LoggerFactory.getLogger(SpringCloudEventEmitter.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(SpringCloudEventKafkaEmitter.class.getName());
 
     private static final String BOOTSTRAP_SERVERS = "localhost:9092";
     private static final String TOPIC = "demo-topic";
@@ -34,7 +34,7 @@ public class SpringCloudEventEmitter implements CloudEventEmitter {
     private final String bootstrapServers;
     private final String topic;
 
-    public SpringCloudEventEmitter() {
+    public SpringCloudEventKafkaEmitter() {
         this.bootstrapServers = "localhost:9092";
         this.topic = "demo-topic";
 
