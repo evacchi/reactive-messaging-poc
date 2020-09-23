@@ -7,7 +7,7 @@
     <artifactId>reactive-messaging-poc</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
-  <artifactId>common-data-generator</artifactId>
+  <artifactId>common-logging-emitter</artifactId>
 
   <dependencies>
 
@@ -38,16 +38,16 @@
       <scope>provided</scope>
 
     </dependency>
-
-    <dependency>
-      <groupId>com.example.demo</groupId>
-      <artifactId>common</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
-    </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>1.7.30</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.example.demo</groupId>
+      <artifactId>common-data-generator</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

@@ -16,6 +16,7 @@
   <modules>
     <module>common</module>
     <module>common-data-generator</module>
+    <module>common-logging-emitter</module>
     <module>spring-kafka</module>
     <module>spring-demo</module>
     <module>quarkus-kafka</module>

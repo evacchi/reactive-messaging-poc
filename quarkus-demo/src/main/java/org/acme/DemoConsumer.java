@@ -20,12 +20,13 @@ public class DemoConsumer {
     Publisher<Event> publisher;
 
     @Inject
-    CloudEventEmitter emitter;
+    QuarkusCloudEventEmitter emitter;
 
     @PostConstruct
     void observer() {
         Multi.createFrom().publisher(publisher)
-                .onItem().invoke(System.out::println)
-                .subscribe().with(emitter::emit);
+                .map(x -> { System.out.println(x); return x; })
+                .subscribe()
+                .with(emitter::emit);
     }
 }

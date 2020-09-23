@@ -17,7 +17,6 @@ import org.eclipse.microprofile.reactive.messaging.Emitter;
  */
 @ApplicationScoped
 public class QuarkusCloudEventEmitter implements CloudEventEmitter {
-    @Inject
     @Channel("output_stream")
     Emitter<Event> emitter;
 
