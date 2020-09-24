@@ -1,3 +1,5 @@
+JIRA: [KOGITO-3272: Consolidate CloudEvent Usages](https://issues.redhat.com/browse/KOGITO-3272)
+
 This demo project shows how to share a common implementation based on Reactive 
 Streams for producing events. The implementation of a single `Publisher<CloudEvent>`
 works seamlessly with both Spring and Quarkus.
