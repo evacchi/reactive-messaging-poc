@@ -16,12 +16,13 @@ import org.eclipse.microprofile.reactive.messaging.Emitter;
  *
  */
 @ApplicationScoped
-public class QuarkusCloudEventEmitter implements CloudEventEmitter {
+public class QuarkusKafkaCloudEventEmitter implements CloudEventEmitter {
+    @Inject
     @Channel("output_stream")
-    Emitter<Event> emitter;
+    Emitter<String> emitter;
 
     @Override
     public CompletionStage<Void> emit(Event e) {
-        return emitter.send(e);
+        return emitter.send(e.payload());
     }
 }

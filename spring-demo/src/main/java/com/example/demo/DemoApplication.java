@@ -4,7 +4,6 @@ import java.util.concurrent.CountDownLatch;
 
 import com.example.demo.common.CloudEventEmitter;
 import com.example.demo.common.Event;
-import com.example.demo.common.EventSubscriber;
 import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +33,7 @@ public class DemoApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		log.info("startup");
 		Flux.from(publisher)
-				.map(e -> { System.out.println(e); return e;})
+				.doOnNext(e -> log.info("Received: {}", e))
 				.subscribe(emitter::emit);
 	}
 

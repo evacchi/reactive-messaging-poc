@@ -14,7 +14,6 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import org.apache.kafka.common.serialization.IntegerSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,9 +25,6 @@ public class SpringCloudEventKafkaEmitter implements CloudEventEmitter {
 
     private static final Logger log = LoggerFactory.getLogger(SpringCloudEventKafkaEmitter.class.getName());
 
-    private static final String BOOTSTRAP_SERVERS = "localhost:9092";
-    private static final String TOPIC = "demo-topic";
-
     private final KafkaProducer<String, String> sender;
     private final SimpleDateFormat dateFormat;
     private final String bootstrapServers;
@@ -36,13 +32,13 @@ public class SpringCloudEventKafkaEmitter implements CloudEventEmitter {
 
     public SpringCloudEventKafkaEmitter() {
         this.bootstrapServers = "localhost:9092";
-        this.topic = "demo-topic";
+        this.topic = "output-topic";
 
         Map<String, Object> props = new HashMap<>();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "bootstrapServers");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.CLIENT_ID_CONFIG, "sample-producer");
         props.put(ProducerConfig.ACKS_CONFIG, "all");
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class);
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         SenderOptions<String, String> senderOptions = SenderOptions.create(props);
 
@@ -55,7 +51,7 @@ public class SpringCloudEventKafkaEmitter implements CloudEventEmitter {
         Future<RecordMetadata> future = sender.send(record);
         return CompletableFuture.supplyAsync(() -> {
             try {
-                // not arguing that this is good design of course
+                // we are discarding data here, we should actually manage it somehow
                 RecordMetadata recordMetadata = future.get();
                 return null;
             } catch (InterruptedException | ExecutionException e) {
